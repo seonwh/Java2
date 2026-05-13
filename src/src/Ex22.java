@@ -8,6 +8,6 @@ public class Ex22 extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(null);
 
-        JLabel la = new JLabel("Hello, Press")
+        JLabel la = new JLabel("Hello, Press");
     }
 }
