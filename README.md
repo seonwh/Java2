@@ -1,5 +1,54 @@
 # JAVA(2)
 ## 202530114 선우혁
+## 05/27
+### 어댑터 클래스
+* 이벤트 리스너 구현에 따른 부담
+  * 리스너의 추상 메소드를 모두 구현해야 하는 부담
+  * ex) 마우스 리스너에서 마우스가 눌러지는 경우(mousePressed())만 처리해야 하는 경우에도 나머지 4개의 메소드를 모두 구현해야 하는 부담
+* 어댑터 클래스(Adapter)
+  * 리스너의 모든 메소드를 단순 리턴하도록 만든 클래스(JDK 제공)
+  * ```java 
+    JLabel la;
+    contentPane.addMouseListener(new MyMouseAdapter());
+    class MyMouseAdapter {
+    }
+* 추상 메소드가 하나뿐인 리스너는 어댑터 없음
+  * ActionAdapter, ItemAdapter 클래스는 존재하지 않음
+### 키 판별
+* KeyEvent 객체
+  * 입력된 키 정보를 가진 이벤트 객체
+  * KeyEvent 객체의 메소드로 입력된 키 판별
+* KeyEvent 객체의 메소드로 입력된 키 판별
+  * char KeyEvent.getKeyChar()
+  * 키의 유니코드 문자 값 리턴
+  * Unicode 문자 키인 경우에만 의미 있음
+  * 입력된 키를 판별하기 위해 문자 값만 비교
+* int KeyEvent.getKeyCode()
+  * 유니코드 키 포함
+  * 모든 키에 대한 정수형 키 코드 리턴
+  * 입력된 키를 판별하기 위해 가상키 값과 비교해야 함
+  * 가상 키 값은 KeyEvent 클래스에 상수로 선언
+### Mouse 이벤트
+* MouseEvent: 사용자의 마우스 조작에 따라 발생하는 이벤트
+  * mouseClicked(): 마우스가 눌러진 위치에서 그대로 떼어질 때 호출
+  * mouseReleased(): 마우스가 눌러진 위치에서 그대로 떼어지든 아니든 항상 호출
+  * mouseDragged(): 마우스가 드래그되는 동안 계속 여러번 호출
+* 마우스가 눌러진 위치에서 떼어지는 경우 메소드 호출 순서
+  ```java
+    mousePressed(), mouseReleased(), mouseClicked()
+* 마우스가 드래그될 때 호출되는 메소드 호출 순서
+  ```java
+    mousePressed(), mouseDragged(), mouseDragged(),..., mouseDragged(), mouseReleased()
+* 마우스 리스너 달기
+  ```java
+    component.addMouseListener(myMouseListener);
+* 마우스 무브나 드래깅을 함꼐 처리하고자 하면 MouseMotion 리스너 따로 등록
+  ```java
+  component.addMouseMotionListener(myMouseListener);
+### 스윙 컴포넌트
+* JComponent
+  * 스윙 컴포넌트의 멤버를 모두 상속받는 슈퍼 클래스, 추상 클래스
+  * 스윙 컴포넌트들이 상속받는 공통 메소드와 상수 구현
 ## 05/20
 ### 이벤트 기반 프로그래밍
 * 이벤트의 발생에 의해 프로그램 흐름이 결정됨
